@@ -1,0 +1,17 @@
+/*
+ *  Colors
+ */
+$white: #FFF;
+$black: #000;
+$gray: mix($white, $black, 50%);
+$red: rgb(170, 28, 70);
+$light-red: lighten($red, 10%);
+
+a, a:link, a:visited, a:active, a:focus {
+    text-decoration: none;
+    color: $red;
+    transition: all .2s ease-out;
+}
+a:hover {
+    color: $light-red;
+}

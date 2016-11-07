@@ -1,0 +1,123 @@
+@mixin clearfix() {
+    &:after{
+        content: "";
+        clear: both;
+        display: block;
+    }
+}
+/*******************\
+  Grid System
+\*******************/
+$container-widths: (
+    '(min-width: 768px)': '750',
+    '(min-width: 992px)': '970',
+    '(min-width: 1200px)': '1170',
+);
+$breakpoints: (
+    'lg': '(max-width: 1199px)',
+    'md': '(max-width: 991px)',
+    'sm': '(max-width: 767px)',
+);
+@mixin containers() {
+    @each $screen-width, $container-width in $container-widths {
+        @media #{$screen-width} {
+            & { max-width: #{$container-width}px; }
+        }
+    }
+}
+@mixin columns($max){
+    @each $screen-width, $media-query in $breakpoints {
+        @for $i from 1 through $max {
+            .col-#{$screen-width}-#{$i} {
+                box-sizing: border-box;
+                float: left;
+                padding: 0 15px;
+                background-color: transparent;
+                background-clip: content-box;
+                width: percentage($i/$max);
+            }
+        }
+        @media #{$media-query}{
+            [class*="#{$screen-width}"]{
+                width: 100%;
+                margin-bottom: .5em;
+                float: none;
+            }
+        }
+    }
+}
+
+/*******************\
+  Navigation Hovers
+\*******************/
+@mixin nav-link-hover-1() {
+    &:before {
+        transition: all .3s ease;
+        content: "";
+        position: absolute;
+        top: 60px;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        background-color: $green;
+        z-index: -1;
+    }
+    &:hover:before {
+        top: 0;
+    }
+}
+@mixin nav-link-hover-2() {
+    &:before {
+        content: "";
+        position: absolute;
+        top: 52%;
+        bottom: 43%;
+        right: 100%;
+        left: 0;
+        background-color: $green;
+        z-index: -1;
+    }
+    &:hover:before {
+        animation: laser .3s linear;
+    }
+    @keyframes laser {
+        0% { right: 100%; left: 0; }
+        50% { right: 0; left: 0;}
+        75% { right: 0; left: 50%; }
+        100% { right: 0; left: 100%; }
+    }
+    @-webkit-keyframes laser {
+        0% { right: 100%; left: 0; }
+        50% { right: 0; left: 0;}
+        75% { right: 0; left: 50%; }
+        100% { right: 0; left: 100%; }
+    }
+
+}
+@mixin nav-link-hover-3() {
+    &:before {
+        content: "[";
+        opacity: 0;
+        transform: translateX(10px);
+        display: inline-block;
+        transition: all .3s ease-in-out;
+    }
+    &:after {
+        content: "]";
+        opacity: 0;
+        transform: translateX(-10px);
+        display: inline-block;
+        transition: all .3s ease-in-out;
+    }
+    &:hover {
+        &:before {
+            transform: translateX(-5px);
+            opacity: 1;
+        }
+        &:after {
+            transform: translateX(5px);
+            opacity: 1;
+        }
+    }
+
+}
